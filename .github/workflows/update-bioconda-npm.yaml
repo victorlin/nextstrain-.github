@@ -1,0 +1,29 @@
+name: Update a Bioconda recipe
+
+on:
+  workflow_call:
+    inputs:
+      npm-name:
+        description: >-
+          Recipe name in NPM
+        type: string
+        required: true
+
+      bioconda-name:
+        description: >-
+          Recipe name in Bioconda
+        type: string
+        required: false
+
+jobs:
+  make-pr:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: conda-incubator/setup-miniconda@v2
+      with:
+        python-version: ~3
+        mamba-version: "*"
+        channels: bioconda
+        channel-priority: true
+        activate-environment: test
+    - run:
